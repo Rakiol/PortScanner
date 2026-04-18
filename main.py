@@ -1,16 +1,35 @@
-# This is a sample Python script.
+#first try´s
 
-# Press Umschalt+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import os, socket
+from os import read
+
+HOST = ("127.0.0.1", 65432)
+
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    s.bind(HOST)
+    s.listen()
+    conn, addr = s.accept()
+    with conn:
+        print(f"Connected by {addr}")
+        while True:
+            data = conn.recv(1024)
+            if not data:
+                break
+            conn.sendall(data)
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Strg+F8 to toggle the breakpoint.
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+#inp = input("Please enter an IP address: ")
+'''
+try:
+    if not os.path.exists("ScanData.txt"):
+        with open("ScanData.txt", "w") as file:
+            file.write("Sample")
+    else:
+        file = open("ScanData.txt", "w")
+        file.write("sample2")
+except:
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    print("Error")
+'''
