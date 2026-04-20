@@ -6,7 +6,8 @@ def scan_port(host, port):
     mySocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     mySocket.settimeout(0.5)
     if mySocket.connect_ex(address) == 0:
-        print("Port ", address[1], " is OPEN")
+
+        print("Port ", address[1], " is OPEN and Service: ", socket.getservbyport(address[1]) )
     else:
         print("PORT ", address[1], " is CLOSED")
     mySocket.close()
@@ -19,7 +20,8 @@ def scan_range(host, range0, range1):
             address = (host, i)
             print("Scanning Port: ", i)
             if mySocket.connect_ex(address) == 0:
-                f.write(str(i) + " is Open\n")
+                n = socket.getservbyport(i)
+                f.write(str(i) + " is Open and Service: " + n + "\n")
             else:
                 pass
             mySocket.close()
