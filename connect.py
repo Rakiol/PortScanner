@@ -12,17 +12,18 @@ def scan_port(host, port):
     mySocket.close()
 
 def scan_range(host, range0, range1):
+    with open("openPorts.txt", "a") as f:
+        for i in range(range0, range1 + 1):
+            mySocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            mySocket.settimeout(0.5)
+            address = (host, i)
+            print("Scanning Port: ", i)
+            if mySocket.connect_ex(address) == 0:
+                f.write(str(i) + " is Open\n")
+            else:
+                pass
+            mySocket.close()
 
-    for i in range(range0, range1):
-        mySocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        mySocket.settimeout(0.5)
-        address = (host, i)
-        file = open("openPorts.txt", "a")
-        if mySocket.connect_ex(address) == 0:
-            file.write(str(i) + " is Open\n")
-        else:
-            pass
-        mySocket.close()
 
 if __name__ == "__main__":
     a = input("Please write IP or Domain\n")
@@ -36,3 +37,4 @@ if __name__ == "__main__":
         scan_range(a, c, d)
     print()
     print("Finished")
+
