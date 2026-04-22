@@ -35,12 +35,28 @@ def scan_range(ip_scan, range_first, range_end):
             else:
                 pass
             mySocket.close()
-
+def print_help():
+    print(
+        """
+        Usage: python main.py <ip/domain> <port>           → scan single port
+               python main.py <ip/domain> <start> <end>    → scan port range
+        
+        Options:
+          -h, --help    Show this help message
+        
+        Examples:
+          python main.py 127.0.0.1 80
+          python main.py scanme.nmap.org 1 1024
+        
+        Note: Only scan systems you own or have permission to scan.
+        """
+    )
 
 if __name__ == "__main__":
-
     #print(len(sys.argv))
-    if len(sys.argv) < 3:
+    if "--help" in sys.argv or "-h" in sys.argv:
+        print_help()
+    elif (len(sys.argv) < 3) :
         print("You need min. 2 Arguments")
         sys.exit(1)
     elif len(sys.argv) == 3:

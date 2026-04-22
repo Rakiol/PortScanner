@@ -1,46 +1,48 @@
 # PortScanner 🔍
 
-A simple Python port scanner built to practice core Python concepts like functions, loops, sockets, and file I/O.
+A simple Python port scanner built to practice core Python concepts like functions, loops, sockets, file I/O and CLI argument parsing.
 
 ## Features
 
 - Scan a **single port** or a **range of ports**
+- Displays the **service name** for open ports (e.g. Port 80 → http)
 - Saves all open ports to `openPorts.txt`
-- Interactive CLI — enter target IP/domain and port range at runtime
+- CLI-based — pass arguments directly when running the script
+- `--help` flag for usage instructions
 - Timeout handling for fast scanning
 
 ## Requirements
 
 - Python 3.x
-- No external libraries needed — uses only the built-in `socket` module
+- No external libraries needed — uses only the built-in `socket` and `sys` modules
 
 ## Usage
 
 ```bash
-python main.py
+# Scan a single port
+python main.py <ip/domain> <port>
+
+# Scan a port range
+python main.py <ip/domain> <start> <end>
+
+# Show help
+python main.py --help
+python main.py -h
 ```
 
-You will be prompted to:
-1. Enter an IP address or domain (e.g. `127.0.0.1` or `scanme.nmap.org`)
-2. Choose between single port scan (`1`) or range scan (`2`)
-3. Enter the port number or range
+## Examples
 
-## Example
-
+```bash
+python main.py 127.0.0.1 80
+python main.py scanme.nmap.org 1 1024
 ```
-Please write IP or Domain
-> scanme.nmap.org
-Please write 1 = Single Port or 2 = Range
-> 2
-Write Start Range
-> 1
-Write End Range
-> 100
 
-Port 22 is OPEN
-Port 80 is OPEN
+Output:
+```
+Scanning Port: 22
+Scanning Port: 23
 ...
-Finished
+Port 80 is OPEN and Service: http
 ```
 
 Open ports are saved to `openPorts.txt` in the same directory.
@@ -50,9 +52,6 @@ Open ports are saved to `openPorts.txt` in the same directory.
 ```
 PortScanner/
 ├── main.py          # Main scanner with scan_port() and scan_range()
-├── connect.py       # Socket connection experiments
-├── echo-client.py   # Echo client example
-├── echo-server.py   # Echo server example
 └── openPorts.txt    # Output file (auto-generated)
 ```
 
@@ -60,12 +59,14 @@ PortScanner/
 
 Only scan systems you own or have explicit permission to scan. Unauthorized port scanning may be illegal in your country.
 
-## Purpose
+## What I learned
 
 This project was built as a **Python learning exercise** covering:
-- `socket` module
-- Functions and return values
+- Functions and parameters
 - Loops and conditionals
-- File I/O with `open()`
-- User input handling
+- `sys.argv` for CLI argument parsing
+- `socket` module for network connections
+- File I/O with `with open()`
+- `try/except` error handling
 - `if __name__ == "__main__"` pattern
+- CLI design with flags (`--help`, `-h`)
